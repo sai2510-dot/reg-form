@@ -1,29 +1,24 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById('registration-form');
+const form = document.getElementById('registration-form');
+const tableBody = document.querySelector('#entriesTable tbody');
 
-    form.addEventListener('submit', function (event) {
-        event.preventDefault(); // Prevent page reload
+form.addEventListener('submit', function (event) {
+  event.preventDefault();
 
-        const name = document.getElementById('name').value.trim();
-        const email = document.getElementById('email').value.trim();
-        const password = document.getElementById('password').value.trim();
+  const name = document.getElementById('name').value;
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const dob = document.getElementById('dob').value;
+  const acceptedTerms = document.getElementById('acceptTerms').checked;
 
-        if (!name || !email || !password) {
-            alert('Please fill in all fields.');
-            return;
-        }
+  const row = document.createElement('tr');
+  row.innerHTML = `
+    <td>${name}</td>
+    <td>${email}</td>
+    <td>${password}</td>
+    <td>${dob}</td>
+    <td>${acceptedTerms}</td>
+  `;
 
-        if (!validateEmail(email)) {
-            alert('Please enter a valid email address.');
-            return;
-        }
-
-        alert('Registration successful!');
-        form.reset(); // Clear the form
-    });
-
-    function validateEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return re.test(email);
-    }
+  tableBody.appendChild(row);
+  form.reset();
 });
